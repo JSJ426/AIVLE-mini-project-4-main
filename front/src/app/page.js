@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import "./css/books.css";
-import api from "./api/apiClient"; // ✅ apiClient 사용
+import api from "./api/apiClient";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -23,7 +23,7 @@ export default function Home() {
     setHasToken(!!token);
   }, []);
 
-  // ✅ API 호출 함수 (localhost 하드코딩 제거)
+  // API 호출 함수
   async function fetchBooks(currentPage) {
     try {
       setLoading(true);
@@ -31,7 +31,6 @@ export default function Home() {
       // apiClient의 baseURL(NEXT_PUBLIC_API_BASE_URL) + "/books" 로 호출됨
       const res = await api.get(`/books?page=${currentPage}&size=${size}`);
 
-      // axios는 res.data에 실제 데이터가 들어있음
       const json = res.data;
       const list = json.data?.books ?? [];
 
@@ -104,7 +103,7 @@ export default function Home() {
                 className="book-card border- shadow-sm"
                 role="button"
                 onClick={() =>
-                  (window.location.href = `/post_view/${book.bookId}`)
+                  (window.location.href = `/post_view?slug=${book.bookId}`)
                 }
               >
                 {/* 이미지 */}
