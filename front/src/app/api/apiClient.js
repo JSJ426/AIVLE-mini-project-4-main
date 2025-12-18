@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
@@ -56,10 +58,11 @@ api.interceptors.response.use(
 
         try {
           const res = await axios.post(
-            "http://localhost:8080/api/auth/token/refresh",
+            `${BASE_URL}/auth/token/refresh`,
             {},
             { withCredentials: true }
           );
+
 
           // Authorization 헤더에서 새로운 accessToken 추출
           const authHeader = res.headers["authorization"];
