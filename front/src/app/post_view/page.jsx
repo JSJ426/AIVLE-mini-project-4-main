@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from 'next/navigation';
-import "../../css/post_view.css";
-import api from "../../api/apiClient";
+import "../css/post_view.css";
+import api from "../api/apiClient";
 
 import ConfirmModal from "@/app/components/ConfirmModal";
 

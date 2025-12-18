@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import "../../css/edit_post.css";
+import "../css/edit_post.css";
 
 import ConfirmModal from "@/app/components/ConfirmModal";
 import { generateCoverImage } from "@/app/api/openaiClient";
