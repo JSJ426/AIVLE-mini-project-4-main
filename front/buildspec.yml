@@ -13,14 +13,42 @@ phases:
   build:
     commands:
       - npm run build
+      - ls -al out
 
 artifacts:
-  base-directory: front
+  base-directory: front/out
   files:
-    - .next/**/*
-    - public/**/*
-    - package.json
-    - package-lock.json
-    - next.config.js
-    - appspec.yml
-    - scripts/**/*
+    - '**/*'
+  discard-paths: no
+
+
+
+
+
+
+# version: 0.2
+
+# phases:
+#   install:
+#     runtime-versions:
+#       nodejs: 20
+
+#   pre_build:
+#     commands:
+#       - cd front
+#       - npm ci
+
+#   build:
+#     commands:
+#       - npm run build
+
+# artifacts:
+#   base-directory: front
+#   files:
+#     - .next/**/*
+#     - public/**/*
+#     - package.json
+#     - package-lock.json
+#     - next.config.js
+#     - appspec.yml
+#     - scripts/**/*
