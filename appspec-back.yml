@@ -1,0 +1,28 @@
+version: 0.0
+os: linux
+
+files:
+  - source: app.jar
+    destination: /opt/a086126-back
+    overwrite: true
+
+hooks:
+  BeforeInstall:
+    - location: scripts/back_stop.sh
+      timeout: 60
+      runas: root
+
+  AfterInstall:
+    - location: scripts/back_install.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
+    - location: scripts/back_start.sh
+      timeout: 60
+      runas: root
+
+  ValidateService:
+    - location: scripts/back_validate.sh
+      timeout: 60
+      runas: root
