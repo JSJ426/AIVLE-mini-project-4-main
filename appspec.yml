@@ -1,0 +1,31 @@
+version: 0.0
+os: linux
+
+files:
+  - source: front/out
+    destination: /usr/share/nginx/html
+
+hooks:
+  AfterInstall:
+    - location: scripts/restart-nginx.sh
+      timeout: 300
+      runas: root
+
+
+# version: 0.0
+# os: linux
+
+# files:
+#   - source: /
+#     destination: /home/ubuntu/app
+
+# hooks:
+#   BeforeInstall:
+#     - location: scripts/install.sh
+#       timeout: 300
+#       runas: ubuntu
+
+#   ApplicationStart:
+#     - location: scripts/start.sh
+#       timeout: 300
+#       runas: ubuntu
