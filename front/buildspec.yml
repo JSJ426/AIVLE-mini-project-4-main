@@ -4,8 +4,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 20
-
-  pre_build:
     commands:
       - cd front
       - npm ci
@@ -14,15 +12,17 @@ phases:
     commands:
       - echo "NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL"
       - printenv | grep NEXT_PUBLIC_API_BASE_URL || true
-      - node -e "console.log('node sees:', process.env.NEXT_PUBLIC_API_BASE_URL)"
       - npm run build
-      - ls -al out
+      - echo "=== search localhost in out ==="
+      - grep -R "localhost:8080" -n out || true
+      - echo "=== search backend domain in out ==="
+      - grep -R "<백엔드실도메인>" -n out || true
 
 artifacts:
   base-directory: front/out
   files:
-    - '**/*'
-  discard-paths: no
+    - "**/*"
+
 
 
 
