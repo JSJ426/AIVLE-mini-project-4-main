@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Pagination from "@mui/material/Pagination"; // MUI Pagination 추가
+import Pagination from "@mui/material/Pagination";
 import "./css/books.css";
+import api from "./api/apiClient"; // ✅ apiClient 사용
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -22,17 +23,16 @@ export default function Home() {
     setHasToken(!!token);
   }, []);
 
-  // API 호출 함수
+  // ✅ API 호출 함수 (localhost 하드코딩 제거)
   async function fetchBooks(currentPage) {
     try {
       setLoading(true);
-      const res = await fetch(
-        `http://localhost:8080/api/books?page=${currentPage}&size=${size}`
-      );
 
-      if (!res.ok) throw new Error("도서 목록 요청 실패");
+      // apiClient의 baseURL(NEXT_PUBLIC_API_BASE_URL) + "/books" 로 호출됨
+      const res = await api.get(`/books?page=${currentPage}&size=${size}`);
 
-      const json = await res.json();
+      // axios는 res.data에 실제 데이터가 들어있음
+      const json = res.data;
       const list = json.data?.books ?? [];
 
       setBooks(list);
@@ -54,13 +54,11 @@ export default function Home() {
 
   return (
     <main className="container py-5 home-container">
-
       {/* 헤더 */}
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
         <h2 className="section-title m-0">📚 도서 목록</h2>
 
         <div className="flex justify-end items-center gap-3">
-          
           {/* 로그인한 사용자만 도서 등록 버튼 표시 */}
           {hasToken && (
             <button
@@ -105,7 +103,9 @@ export default function Home() {
               <div
                 className="book-card border- shadow-sm"
                 role="button"
-                onClick={() => (window.location.href = `/post_view/${book.bookId}`)}
+                onClick={() =>
+                  (window.location.href = `/post_view/${book.bookId}`)
+                }
               >
                 {/* 이미지 */}
                 <div className="book-thumb">
@@ -116,7 +116,9 @@ export default function Home() {
                     loading="lazy"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
-                      e.currentTarget.parentElement?.classList.add("thumb-fallback");
+                      e.currentTarget.parentElement?.classList.add(
+                        "thumb-fallback"
+                      );
                     }}
                   />
                 </div>
