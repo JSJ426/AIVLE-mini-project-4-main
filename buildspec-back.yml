@@ -21,10 +21,9 @@ phases:
     commands:
       - cd ..
       - mkdir -p dist
-      - |
-        JAR_PATH=$(ls back/build/libs/*.jar | head -n 1)
-        echo "JAR_PATH=$JAR_PATH"
-        cp "$JAR_PATH" dist/app.jar
+      - JAR_PATH=$(ls back/build/libs/*.jar | head -n 1)
+      - echo "JAR_PATH=$JAR_PATH"
+      - cp "$JAR_PATH" dist/app.jar
       - cp appspec-back.yml dist/appspec.yml
       - cp -r scripts dist/scripts
 
